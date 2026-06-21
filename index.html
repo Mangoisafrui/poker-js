@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deck of Cards Poker Hand</title>
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --text: #111827;
+      --muted: #4b5563;
+      --cardBg: #f9fafb;
+      --border: #e5e7eb;
+      --btnBg: #111827;
+      --btnText: #ffffff;
+      --accent: #2563eb;
+      --shadow: 0 8px 24px rgba(0,0,0,0.10);
+      --glow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    }
+
+    body.dark{
+      --bg: #0b1220;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --cardBg: #111827;
+      --border: #1f2937;
+      --btnBg: #e5e7eb;
+      --btnText: #111827;
+      --accent: #22c55e;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --glow: 0 0 0 3px rgba(34, 197, 94, 0.25);
+    }
+
+    body{
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .topbar{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    h1{ margin: 0; font-size: 22px; }
+
+    .panel{
+      background: var(--cardBg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .row{ display:flex; flex-wrap: wrap; gap: 10px; align-items:center; margin: 10px 0; }
+
+    button{
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--btnBg);
+      color: var(--btnText);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button.secondary{
+      background: transparent;
+      color: var(--text);
+    }
+
+    button:disabled{
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    #status{ color: var(--muted); margin: 8px 0; }
+
+    .meta{
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    #cards{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      min-height: 130px;
+    }
+
+    /* Card image styling + hover effect (Feature 1) */
+    .cardImg{
+      width: 95px;
+      height: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+      background: #fff;
+    }
+    .cardImg:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.25);
+      outline: none;
+    }
+
+    /* Fade animation (Feature 1) */
+    .fadeOut{ opacity: 0; transition: opacity 240ms ease; }
+    .fadeIn{ opacity: 1; transition: opacity 240ms ease; }
+
+    .pill{
+      display:inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Theme toggle (Feature 7) */
+    .toggle{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      user-select: none;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .toggle input{ transform: translateY(1px); }
+
+    #result{ font-weight: 800; color: var(--accent); }
+    #debug{
+      margin-top: 10px;
+      white-space: pre-line;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="topbar">
+      <h1>Deck of Cards — Poker Hand</h1>
+
+      <label class="toggle">
+        <input type="checkbox" id="themeToggle" />
+        Dark mode
+      </label>
+    </div>
+
+    <div class="panel">
+      <div class="row">
+        <button id="newDeckBtn">Get / Reset Deck</button>
+        <button id="drawBtn">Draw 5 Cards</button>
+        <button id="drawAgainBtn">Draw Again</button>
+
+        <span class="pill">Sort:</span>
+        <button class="secondary" id="sortValueBtn">Sort by Value</button>
+        <button class="secondary" id="sortSuitBtn">Sort by Suit</button>
+
+        <button class="secondary" id="evalBtn">Evaluate Hand</button>
+      </div>
+
+      <p id="status">Status: Ready.</p>
+
+      <p class="meta">
+        Deck ID: <span id="deckId">None</span>
+        &nbsp;|&nbsp;
+        Cards Remaining: <span id="remaining">?</span>
+      </p>
+
+      <div id="cards" class="fadeIn"></div>
+
+      <p class="meta">Highest Hand: <span id="result">None</span></p>
+
+      <div id="debug"></div>
+    </div>
+  </div>
+
+  <script src="main2.js"></script>
+</body>
+</html>
