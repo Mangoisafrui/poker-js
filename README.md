@@ -1,5 +1,4 @@
 # poker-js
-# Poker Hands
 
 A JavaScript application that uses the Deck of Cards API to deal and evaluate poker hands in the browser.
 
